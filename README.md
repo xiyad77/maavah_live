@@ -34,7 +34,7 @@ Features:
 - **Bilingual Dispatches**: Features English announcements alongside Dhivehi (Thaana script) snippets.
 - **Official Embeds**: Direct embedded Facebook Page Plugin iframes and external navigation links.
 
-### 3. Design System Inspired by [GetArtCraft](https://getartcraft.com/)
+### 3. Design System 
 - **Light Theme Palette**: Warm architectural linen canvas (`#f2f1ee`), elevated card surfaces (`#faf9f7`), deep black typography (`#101014`), and crisp 1px borders (`rgba(16, 16, 20, 0.16)`).
 - **Sticky HUD Nav (48px)**: Segmented navigation with 1px border dividers, monospace HUD items with hover inversion (`bg-invert-bg text-invert-fg`), live green pulsing indicator, and real-time Maldives Time clock (`MVT / UTC+5`).
 - **Telemetry Ticker**: Marquee ticker banner streaming real-time readings across the top of the viewport.
