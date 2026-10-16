@@ -3,7 +3,7 @@
 > Real-time Civic, Meteorological & Maritime Hydrology Portal for Maavah Island, Laamu Atoll, Republic of Maldives.
 > Location: `1.8800° N, 73.2400° E`
 
-Built with **Express.js**, **EJS**, and **HTMX (v2.0.4)**. The user interface and visual identity are styled after the architectural minimalist light theme of [getartcraft.com](https://getartcraft.com/).
+Built with **Express.js**, **EJS**, and **HTMX (v2.0.4)**. The user interface and visual identity are styled after the architectural minimalist light theme 
 
 ---
 
