@@ -1,0 +1,172 @@
+<% 
+  const isF = unit === 'F';
+  const displayTemp = isF ? weather.current.tempFahrenheit : weather.current.temperature;
+  const tempUnit = isF ? '°F' : '°C';
+%>
+
+<div class="weather-grid">
+  <!-- Card 1: Ambient Atmospheric Telemetry -->
+  <div class="weather-card col-4">
+    <div class="card-header-hud">
+      <span class="card-title-hud">// 01. AMBIENT METEOROLOGY</span>
+      <span class="card-badge-hud">OPEN-METEO LIVE</span>
+    </div>
+
+    <div class="metric-huge">
+      <%= displayTemp %>
+      <span class="metric-unit"><%= tempUnit %></span>
+    </div>
+
+    <div class="condition-pill">
+      <!-- Weather SVG icon -->
+      <% if (weather.current.condition.icon === 'sun') { %>
+        <svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      <% } else if (weather.current.condition.icon.includes('rain') || weather.current.condition.icon.includes('drizzle')) { %>
+        <svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="16" y1="13" x2="16" y2="21"></line><line x1="8" y1="13" x2="8" y2="21"></line><line x1="12" y1="15" x2="12" y2="23"></line>
+          <path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"></path>
+        </svg>
+      <% } else { %>
+        <svg class="condition-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+        </svg>
+      <% } %>
+      <span><%= weather.current.condition.desc %></span>
+    </div>
+
+    <div class="metric-subgrid">
+      <div class="submetric-box">
+        <div class="submetric-label">FEELS LIKE</div>
+        <div class="submetric-value"><%= weather.current.apparentTemperature %>°C</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">HUMIDITY</div>
+        <div class="submetric-value"><%= weather.current.humidity %>%</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">RAIN (PRECIP)</div>
+        <div class="submetric-value"><%= weather.current.rain %> mm</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">BAROMETER</div>
+        <div class="submetric-value"><%= Math.round(weather.current.pressure) %> hPa</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2: Wind Dynamics & Compass Vector -->
+  <div class="weather-card col-4">
+    <div class="card-header-hud">
+      <span class="card-title-hud">// 02. LAAMU WIND VECTOR</span>
+      <span class="card-badge-hud"><%= weather.current.wind.cardinal %> @ <%= weather.current.wind.directionDeg %>°</span>
+    </div>
+
+    <div class="wind-display-layout">
+      <!-- Visual Compass Dial -->
+      <div class="compass-dial" title="Wind Angle: <%= weather.current.wind.directionDeg %>°">
+        <span class="compass-cardinal compass-n">N</span>
+        <span class="compass-cardinal compass-e">E</span>
+        <span class="compass-cardinal compass-s">S</span>
+        <span class="compass-cardinal compass-w">W</span>
+        <div class="compass-needle" data-angle="<%= weather.current.wind.directionDeg %>"></div>
+        <div class="compass-center-dot"></div>
+      </div>
+
+      <div class="wind-data-readout">
+        <div class="metric-huge">
+          <%= weather.current.wind.speedKnots %>
+          <span class="metric-unit">KTS</span>
+        </div>
+        <div class="hud-label" style="margin-top: 4px; color: var(--ink);">
+          <%= weather.current.wind.speedKmh %> KM/H &bull; <%= weather.current.wind.cardinal %>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-subgrid">
+      <div class="submetric-box">
+        <div class="submetric-label">WIND GUSTS</div>
+        <div class="submetric-value"><%= weather.current.wind.gustsKnots %> KTS</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">CLOUD COVER</div>
+        <div class="submetric-value"><%= weather.current.cloudCover %>%</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">GUSTS (KM/H)</div>
+        <div class="submetric-value"><%= weather.current.wind.gustsKmh %> km/h</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">SOLAR DAY</div>
+        <div class="submetric-value"><%= weather.current.isDay ? 'Daylight' : 'Night' %></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3: Marine Swell & Astronomical Tides -->
+  <div class="weather-card col-4">
+    <div class="card-header-hud">
+      <span class="card-title-hud">// 03. MARITIME SWELL & TIDES</span>
+      <span class="card-badge-hud">HARMONIC HYDROLOGY</span>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+      <div class="metric-huge">
+        <%= weather.tides.currentHeight %>
+        <span class="metric-unit">M</span>
+      </div>
+      <span class="tide-status-badge <%= weather.tides.isRising ? 'tide-rising' : 'tide-falling' %>">
+        <% if (weather.tides.isRising) { %>
+          &uarr; <%= weather.tides.state %>
+        <% } else { %>
+          &darr; <%= weather.tides.state %>
+        <% } %>
+      </span>
+    </div>
+
+    <div class="metric-subgrid" style="margin-top: 8px;">
+      <div class="submetric-box">
+        <div class="submetric-label">NEXT HIGH TIDE</div>
+        <div class="submetric-value"><%= weather.tides.nextHigh.time %> (<%= weather.tides.nextHigh.height %>m)</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">NEXT LOW TIDE</div>
+        <div class="submetric-value"><%= weather.tides.nextLow.time %> (<%= weather.tides.nextLow.height %>m)</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">WAVE SWELL</div>
+        <div class="submetric-value"><%= weather.marine.waveHeight %>m (<%= weather.marine.seaState %>)</div>
+      </div>
+      <div class="submetric-box">
+        <div class="submetric-label">WAVE PERIOD</div>
+        <div class="submetric-value"><%= weather.marine.wavePeriod %>s @ <%= weather.marine.waveDirection %>°</div>
+      </div>
+    </div>
+
+    <!-- 24-Hour Tidal Curve Visualization -->
+    <div class="tide-curve-container">
+      <div class="hud-label" style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+        <span>24-Hour Tidal Level Cycle</span>
+        <span><%= weather.tides.range %></span>
+      </div>
+      <div class="tide-bars-grid">
+        <% weather.tides.hourlyCurve.forEach((pt, index) => { 
+          // Normalize height between 0.1m and 1.3m to percentage (20% to 95%)
+          const heightPct = Math.max(15, Math.min(95, Math.round(((pt.height - 0.1) / 1.1) * 85 + 15)));
+          const isNow = index === 0;
+        %>
+          <div class="tide-bar-col" title="<%= pt.label %>: <%= pt.height %>m">
+            <div class="tide-bar-fill <%= isNow ? 'active' : '' %>" style="height: <%= heightPct %>%;"></div>
+            <span class="tide-bar-label"><%= pt.label.split(':')[0] %></span>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</div>

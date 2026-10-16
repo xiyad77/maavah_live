@@ -1,0 +1,122 @@
+<nav id="site-nav">
+  <div class="nav-container">
+    <div class="nav-left">
+      <a class="nav-logo" href="/" title="Maavah Live Portal">
+        <!-- SVG Logo: Beacon / Island Telemetry -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="2"></circle>
+          <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+        </svg>
+        <span>MAAVAH LIVE</span>
+        <span class="nav-logo-tag">1.88°N 73.24°E</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link active" href="#weather-section">
+            <span>Weather & Tides</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#feeds-section">
+            <span>Community Feeds</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#fb-embeds-section">
+            <span>Official FB Pages</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#directory-section">
+            <span>Emergency & Council</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <div class="nav-status">
+        <span class="live-pulse" title="Telemetry Stream Active"></span>
+        <span id="live-mvt-clock">--:--:-- MVT</span>
+      </div>
+
+      <button 
+        class="nav-cta"
+        hx-get="/api/weather-cards?force=true"
+        hx-target="#weather-cards-container"
+        hx-swap="innerHTML"
+        hx-indicator="#nav-refresh-spinner"
+        title="Trigger instant telemetry refresh from Open-Meteo"
+      >
+        <svg id="nav-refresh-spinner" class="spinner-icon htmx-indicator" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+        </svg>
+        <span>Sync Telemetry</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Live Telemetry Ticker Marquee -->
+<div class="ticker-bar" aria-label="Live Meteorological Ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item">
+      <strong>MAAVAH (LAAMU ATOLL)</strong>
+      <span>[1.8800° N, 73.2400° E]</span>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>TEMPERATURE:</span>
+      <strong><%= weather.current.temperature %>°C</strong>
+      <span>(FEELS <%= weather.current.apparentTemperature %>°C)</span>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>CONDITIONS:</span>
+      <strong><%= weather.current.condition.desc.toUpperCase() %></strong>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>WIND:</span>
+      <strong><%= weather.current.wind.speedKnots %> KTS <%= weather.current.wind.cardinal %></strong>
+      <span>(GUSTS <%= weather.current.wind.gustsKnots %> KTS)</span>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>TIDE:</span>
+      <strong><%= weather.tides.currentHeight %>M (<%= weather.tides.state.toUpperCase() %>)</strong>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>SWELL:</span>
+      <strong><%= weather.marine.waveHeight %>M @ <%= weather.marine.wavePeriod %>S (<%= weather.marine.seaState.toUpperCase() %>)</strong>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>CIVIC FEEDS:</span>
+      <strong>COUNCIL &bull; SCHOOL &bull; HEALTH CENTER ACTIVE</strong>
+    </div>
+    <span class="ticker-sep">/</span>
+    <!-- Repeat for seamless looping -->
+    <div class="ticker-item">
+      <strong>MAAVAH (LAAMU ATOLL)</strong>
+      <span>[1.8800° N, 73.2400° E]</span>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>TEMPERATURE:</span>
+      <strong><%= weather.current.temperature %>°C</strong>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>WIND:</span>
+      <strong><%= weather.current.wind.speedKnots %> KTS <%= weather.current.wind.cardinal %></strong>
+    </div>
+    <span class="ticker-sep">/</span>
+    <div class="ticker-item">
+      <span>TIDE:</span>
+      <strong><%= weather.tides.currentHeight %>M (<%= weather.tides.state.toUpperCase() %>)</strong>
+    </div>
+  </div>
+</div>

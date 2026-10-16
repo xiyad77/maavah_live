@@ -1,0 +1,94 @@
+<% if (feeds.length === 0) { %>
+  <div style="grid-column: span 12; padding: 48px; text-align: center; background: var(--bg-raised); border: 1px dashed var(--line);">
+    <div class="hud-mono" style="font-size: 14px; color: var(--muted); margin-bottom: 8px;">NO DISPATCHES FOUND</div>
+    <div style="font-size: 13px; color: var(--faint);">No posts match the query "<%= searchQuery %>". Try clearing your search filter.</div>
+  </div>
+<% } else { %>
+  <% feeds.forEach(post => { 
+    const source = sources[post.sourceId] || {};
+  %>
+    <article class="feed-post-card">
+      <div class="post-header">
+        <div class="post-author">
+          <div class="author-avatar" style="background: <%= source.color || 'var(--invert-bg)' %>;">
+            <% if (post.sourceId === 'council') { %>
+              MC
+            <% } else if (post.sourceId === 'school') { %>
+              MS
+            <% } else { %>
+              HC
+            <% } %>
+          </div>
+          <div class="author-meta">
+            <div class="author-name">
+              <span><%= post.sourceName %></span>
+              <svg class="verified-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <div class="post-time"><%= post.timeAgo %> &bull; <%= post.sourceHandle %></div>
+          </div>
+        </div>
+
+        <span class="category-tag"><%= post.category %></span>
+      </div>
+
+      <div class="post-content-area">
+        <h3 class="post-title"><%= post.title %></h3>
+
+        <% if (post.dhivehiSnippet) { %>
+          <div class="post-dhivehi-snippet" dir="rtl" lang="dv">
+            <%= post.dhivehiSnippet %>
+          </div>
+        <% } %>
+
+        <p class="post-body-text"><%= post.content %></p>
+
+        <div class="post-tags-list">
+          <% post.tags.forEach(tag => { %>
+            <span class="post-tag">#<%= tag %></span>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="post-footer">
+        <div class="post-stats">
+          <span class="stat-item" title="Reactions">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+            </svg>
+            <span><%= post.likes %></span>
+          </span>
+          <span class="stat-item" title="Comments">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span><%= post.comments %></span>
+          </span>
+          <span class="stat-item" title="Shares">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+            <span><%= post.shares %></span>
+          </span>
+        </div>
+
+        <a 
+          href="<%= post.sourceUrl %>" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="post-fb-btn"
+          title="Open official Facebook page for <%= post.sourceName %>"
+        >
+          <span>View on Facebook</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    </article>
+  <% }); %>
+<% } %>

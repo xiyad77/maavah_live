@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Diagnostic &bull; Maavah Live</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+  <nav id="site-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a class="nav-logo" href="/">
+          <span>MAAVAH LIVE</span>
+          <span class="nav-logo-tag">DIAGNOSTIC</span>
+        </a>
+      </div>
+      <div class="nav-right">
+        <a href="/" class="nav-cta">Return to Portal &rarr;</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding: 80px 20px; flex: 1; display: flex; align-items: center; justify-content: center;">
+    <div style="max-width: 560px; width: 100%; background: var(--bg-raised); border: 1px solid var(--line); padding: 36px;">
+      <div class="hud-section-tag" style="color: var(--danger); font-weight: 700;">
+        // STATUS 500 &bull; TELEMETRY INTERRUPTED
+      </div>
+      <h1 style="font-family: var(--font-display); font-size: 26px; font-weight: 800; margin-bottom: 12px; color: var(--ink-strong);">
+        Service Notice
+      </h1>
+      <p style="font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 24px;">
+        <%= message || 'An unexpected error occurred while fetching live data. Please return to the homepage or try again shortly.' %>
+      </p>
+
+      <a href="/" class="hud-btn active">
+        <span>Reload Dashboard</span>
+      </a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container" style="text-align: center; font-family: var(--font-mono); font-size: 11px; color: var(--muted);">
+      MAAVAH LIVE &bull; 1.8800° N, 73.2400° E
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<div class="forecast-panel">
+  <div class="card-header-hud">
+    <span class="card-title-hud">// 24-HOUR HOURLY TELEMETRY TIMELINE</span>
+    <span class="card-badge-hud">HOURLY STEP: 1H</span>
+  </div>
+
+  <div class="hourly-scroll">
+    <% weather.hourly.forEach((hour) => { %>
+      <div class="hourly-card">
+        <div class="hourly-time"><%= hour.time %></div>
+        <div class="hourly-temp"><%= hour.temp %>°C</div>
+        <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">
+          <%= hour.windKnots %> kts
+        </div>
+        <div class="hourly-rain">
+          <% if (hour.rainProb > 0) { %>
+            💧 <%= hour.rainProb %>%
+          <% } else { %>
+            <span style="color: var(--faint);">0%</span>
+          <% } %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+
+  <div class="card-header-hud" style="margin-top: 28px;">
+    <span class="card-title-hud">// 7-DAY EXTENDED SYNOPTIC FORECAST</span>
+    <span class="card-badge-hud">OPEN-METEO WMO MODEL</span>
+  </div>
+
+  <div style="overflow-x: auto;">
+    <table class="daily-table">
+      <thead>
+        <tr>
+          <th>DATE</th>
+          <th>CONDITION</th>
+          <th>MAX / MIN</th>
+          <th>RAIN PROB</th>
+          <th>RAIN ACCUM</th>
+          <th>MAX WIND</th>
+          <th>SUNRISE / SUNSET</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% weather.daily.forEach((day) => { %>
+          <tr>
+            <td>
+              <strong><%= day.dayName %></strong>
+              <div style="font-size: 10px; color: var(--muted);"><%= day.date %></div>
+            </td>
+            <td>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span><%= day.condition.desc %></span>
+              </div>
+            </td>
+            <td>
+              <strong style="color: var(--ink-strong);"><%= day.maxTemp %>°C</strong>
+              <span style="color: var(--muted); margin-left: 4px;">/ <%= day.minTemp %>°C</span>
+            </td>
+            <td>
+              <% if (day.rainProb > 0) { %>
+                <span style="color: var(--accent-ink); font-weight: 700;"><%= day.rainProb %>%</span>
+              <% } else { %>
+                <span style="color: var(--faint);">0%</span>
+              <% } %>
+            </td>
+            <td><%= day.rainSum %> mm</td>
+            <td><%= day.windMaxKnots %> kts</td>
+            <td style="color: var(--muted);"><%= day.sunrise %> &bull; <%= day.sunset %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>

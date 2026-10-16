@@ -1,0 +1,26 @@
+{
+  "name": "maavah_live",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiyad77/maavah_live.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/xiyad77/maavah_live/issues"
+  },
+  "homepage": "https://github.com/xiyad77/maavah_live#readme",
+  "dependencies": {
+    "ejs": "^7.0.1",
+    "express": "^5.3.0"
+  }
+}
