@@ -1,0 +1,150 @@
+<% if (activeCategory === 'others' || (businesses.length === 0 && (!searchQuery || searchQuery.trim() === ''))) { %>
+  <!-- Others / Empty Category State -->
+  <div class="biz-empty-state">
+    <div class="biz-empty-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+    </div>
+    <div class="biz-empty-title">Category: Others &bull; 0 Registered Entries</div>
+    <p class="biz-empty-text">
+      Currently no entries under <strong>Others</strong>. Island trades, workshops, marine transport services, construction, and local entrepreneurs in Maavah can submit their phone contact to be added to this community portal.
+    </p>
+    <div class="hud-mono" style="font-size: 11px; color: var(--muted); margin-top: 10px;">
+      CONTACT MAAVAH COUNCIL OR PORTAL ADMIN TO REGISTER
+    </div>
+  </div>
+<% } else if (businesses.length === 0) { %>
+  <!-- Search Not Found State -->
+  <div class="biz-empty-state">
+    <div class="biz-empty-title">No Business Records Found</div>
+    <p class="biz-empty-text">
+      No businesses matching "<strong><%= searchQuery %></strong>". Try searching by another keyword, category, or telephone number.
+    </p>
+    <button 
+      class="hud-btn" 
+      style="margin-top: 14px;"
+      hx-get="/business?category=all&q=" 
+      hx-target="#business-list-container" 
+      hx-swap="innerHTML"
+      onclick="document.getElementById('business-search-input').value = '';"
+    >
+      Reset Search
+    </button>
+  </div>
+<% } else if (activeCategory === 'all' && (!searchQuery || searchQuery.trim() === '')) { %>
+  <!-- Grouped View by Category -->
+  
+  <!-- Group 1: Shops -->
+  <% const shops = businesses.filter(b => b.categorySlug === 'shops'); %>
+  <% if (shops.length > 0) { %>
+    <div class="biz-category-group">
+      <div class="biz-group-header">
+        <span class="biz-group-tag">// 01 &bull; SHOPS &amp; RETAIL</span>
+        <span class="biz-group-count"><%= shops.length %> LISTED</span>
+      </div>
+      <div class="biz-cards-grid">
+        <% shops.forEach(b => { %>
+          <div class="biz-card">
+            <div class="biz-card-top">
+              <span class="biz-category-badge"><%= b.category %></span>
+              <span class="hud-mono biz-atoll">MAAVAH</span>
+            </div>
+            <h3 class="biz-title"><%= b.name %></h3>
+            <p class="biz-tagline"><%= b.tagline %></p>
+            <div class="biz-footer">
+              <div class="biz-mobile-info">
+                <span class="biz-mobile-label">MOBILE:</span>
+                <span class="biz-mobile-num"><%= b.mobile %></span>
+              </div>
+              <a href="tel:<%= b.callNumber || b.mobile %>" class="biz-dial-btn" title="Call <%= b.name %>">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <span>Call <%= b.mobile %></span>
+              </a>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  <% } %>
+
+  <!-- Group 2: Cafe/restaurants -->
+  <% const cafes = businesses.filter(b => b.categorySlug === 'cafe-restaurants'); %>
+  <% if (cafes.length > 0) { %>
+    <div class="biz-category-group" style="margin-top: 24px;">
+      <div class="biz-group-header">
+        <span class="biz-group-tag">// 02 &bull; CAFE / RESTAURANTS</span>
+        <span class="biz-group-count"><%= cafes.length %> LISTED</span>
+      </div>
+      <div class="biz-cards-grid">
+        <% cafes.forEach(b => { %>
+          <div class="biz-card">
+            <div class="biz-card-top">
+              <span class="biz-category-badge"><%= b.category %></span>
+              <span class="hud-mono biz-atoll">MAAVAH</span>
+            </div>
+            <h3 class="biz-title"><%= b.name %></h3>
+            <p class="biz-tagline"><%= b.tagline %></p>
+            <div class="biz-footer">
+              <div class="biz-mobile-info">
+                <span class="biz-mobile-label">MOBILE:</span>
+                <span class="biz-mobile-num"><%= b.mobile %></span>
+              </div>
+              <a href="tel:<%= b.callNumber || b.mobile %>" class="biz-dial-btn" title="Call <%= b.name %>">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <span>Call <%= b.mobile %></span>
+              </a>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  <% } %>
+
+  <!-- Group 3: Others Info Banner -->
+  <div class="biz-category-group" style="margin-top: 24px;">
+    <div class="biz-group-header">
+      <span class="biz-group-tag">// 03 &bull; OTHERS (SERVICES &amp; TRADES)</span>
+      <span class="biz-group-count">0 LISTED</span>
+    </div>
+    <div class="biz-others-callout">
+      <div class="biz-others-text">
+        <strong>Are you a local service provider, tradesperson, or workshop in Maavah?</strong>
+        <span>Register your business contact with the portal to be featured in the directory.</span>
+      </div>
+    </div>
+  </div>
+
+<% } else { %>
+  <!-- Filtered / Search Cards Grid -->
+  <div class="biz-cards-grid">
+    <% businesses.forEach(b => { %>
+      <div class="biz-card">
+        <div class="biz-card-top">
+          <span class="biz-category-badge"><%= b.category %></span>
+          <span class="hud-mono biz-atoll">MAAVAH</span>
+        </div>
+        <h3 class="biz-title"><%= b.name %></h3>
+        <p class="biz-tagline"><%= b.tagline %></p>
+        <div class="biz-footer">
+          <div class="biz-mobile-info">
+            <span class="biz-mobile-label">MOBILE:</span>
+            <span class="biz-mobile-num"><%= b.mobile %></span>
+          </div>
+          <a href="tel:<%= b.callNumber || b.mobile %>" class="biz-dial-btn" title="Call <%= b.name %>">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span>Call <%= b.mobile %></span>
+          </a>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+<% } %>

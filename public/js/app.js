@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initClock();
   initWindCompass();
+  initMobileNav();
   setupHtmxEvents();
 });
 
@@ -61,10 +62,13 @@ function setupHtmxEvents() {
     }
   });
 
-  // Handle active class switching on feed tab clicks
+  // Handle active class switching on tab clicks scoped to group
   document.querySelectorAll('.feed-tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-      document.querySelectorAll('.feed-tab-btn').forEach(b => b.classList.remove('active'));
+      const parent = this.closest('.feed-tabs-hud');
+      if (parent) {
+        parent.querySelectorAll('.feed-tab-btn').forEach(b => b.classList.remove('active'));
+      }
       this.classList.add('active');
     });
   });
@@ -78,3 +82,78 @@ window.toggleUnit = function(targetUnit) {
   url.searchParams.set('unit', targetUnit);
   window.location.href = url.toString();
 };
+
+/**
+ * Mobile Navigation Drawer & Hamburger Toggle Engine
+ */
+function initMobileNav() {
+  const hamburgerBtn = document.getElementById('nav-hamburger-btn');
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (!hamburgerBtn || !drawer) return;
+
+  const label = hamburgerBtn.querySelector('.hamburger-label');
+
+  function openMenu() {
+    hamburgerBtn.classList.add('is-active');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    if (label) label.textContent = 'CLOSE';
+    document.body.classList.add('mobile-nav-open');
+  }
+
+  function closeMenu() {
+    hamburgerBtn.classList.remove('is-active');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    if (label) label.textContent = 'MENU';
+    document.body.classList.remove('mobile-nav-open');
+  }
+
+  function toggleMenu() {
+    const isOpen = drawer.classList.contains('is-open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  }
+
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // Automatically close menu when any internal anchor navigation link is clicked
+  drawer.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+
+  // Close menu when sync telemetry button is clicked on mobile
+  const syncBtn = drawer.querySelector('.mobile-sync-btn');
+  if (syncBtn) {
+    syncBtn.addEventListener('click', () => {
+      setTimeout(() => {
+        closeMenu();
+      }, 400);
+    });
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+      closeMenu();
+      hamburgerBtn.focus();
+    }
+  });
+
+  // Auto-close on viewport resize larger than mobile breakpoint
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && drawer.classList.contains('is-open')) {
+      closeMenu();
+    }
+  });
+}

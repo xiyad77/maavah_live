@@ -9,6 +9,7 @@ const express = require('express');
 const path = require('path');
 const weatherService = require('./services/weatherService');
 const feedService = require('./services/feedService');
+const businessService = require('./services/businessService');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -43,12 +44,19 @@ app.get('/', async (req, res) => {
     const feeds = feedService.getFeeds(activeSource, searchQuery);
     const sources = feedService.getAllSources();
 
+    const businesses = businessService.getBusinesses();
+    const businessCategories = businessService.getCategories();
+
     res.render('index', {
       weather,
       feeds,
       sources,
       activeSource,
       searchQuery,
+      businesses,
+      businessCategories,
+      activeBusinessCategory: 'all',
+      businessSearchQuery: '',
       unit: req.query.unit || 'C'
     });
   } catch (error) {
@@ -132,6 +140,29 @@ app.get('/facebook-embeds', (req, res) => {
 });
 
 /**
+ * HTMX Route: Filter & Search Business Contacts
+ * Endpoint: /business
+ */
+app.get('/business', (req, res) => {
+  try {
+    const category = req.query.category || 'all';
+    const searchQuery = req.query.q || '';
+    const businesses = businessService.getBusinesses(category, searchQuery);
+    const categories = businessService.getCategories();
+
+    res.render('partials/business-list', {
+      businesses,
+      categories,
+      activeCategory: category,
+      searchQuery
+    });
+  } catch (error) {
+    console.error('Error filtering business contacts:', error);
+    res.status(500).send('<div class="hud-error">Failed to load business contacts.</div>');
+  }
+});
+
+/**
  * REST JSON Endpoint: Direct Weather Data
  */
 app.get('/api/raw-weather', async (req, res) => {
@@ -148,6 +179,5 @@ app.listen(PORT, () => {
   console.log(`===================================================`);
   console.log(`MAAVAH LIVE PORTAL RUNNING ON http://localhost:${PORT}`);
   console.log(`Open-Meteo Target: 1.88° N, 73.24° E (Maavah, Maldives)`);
-  console.log(`HTMX v2.0.4 loaded | EJS Engine Initialized`);
   console.log(`===================================================`);
 });

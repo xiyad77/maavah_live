@@ -1,286 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= siteTitle %></title>
-  <meta name="description" content="Real-time meteorological telemetry, tidal predictions, marine wave swell, and official Facebook feeds for Maavah Island, Laamu Atoll, Maldives.">
-  <meta name="keywords" content="Maavah, Laamu Atoll, Maldives, weather, tides, Open-Meteo, Maavah Council, Maavashu School, Maavashu Health Center">
-  
+  <title>
+    <%= siteTitle %>
+  </title>
+  <meta name="description"
+    content="Real-time meteorological telemetry, tidal predictions, marine wave swell, and official Facebook feeds for Maavah Island, Laamu Atoll, Maldives.">
+  <meta name="keywords"
+    content="Maavah, Laamu Atoll, Maldives, weather, tides, Open-Meteo, Maavah Council, Maavashu School, Maavashu Health Center">
+
   <!-- Favicon SVG -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23101014'><circle cx='12' cy='12' r='3'/><path d='M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z'/></svg>">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23101014'><circle cx='12' cy='12' r='3'/><path d='M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z'/></svg>">
 
   <!-- Design System CSS (getartcraft inspired) -->
   <link rel="stylesheet" href="/css/style.css">
 
   <!-- HTMX v2.0.4 CDN -->
-  <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx.org@2.0.4"
+    integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+    crossorigin="anonymous"></script>
 
   <!-- Client Interaction JS -->
   <script src="/js/app.js" defer></script>
 </head>
+
 <body>
 
   <!-- Navigation Bar & Telemetry Ticker -->
   <%- include('partials/header') %>
 
-  <!-- Main Content Body -->
-  <main id="main-content">
-    <div class="container">
+    <!-- Main Content Body -->
+    <main id="main-content">
+      <div class="container">
 
-      <!-- Hero Section -->
-      <section class="hero-section">
-        <div class="hero-grid">
-          <div>
-            <div class="hud-section-tag">
-              <span class="live-pulse"></span>
-              <span>ISLAND TELEMETRY RADAR &bull; LAAMU MAAVAH</span>
+        <!-- Hero Section -->
+        <section class="hero-section">
+          <div class="hero-grid">
+            <div>
+              <div class="hud-section-tag">
+                <span class="live-pulse"></span>
+                <span>ISLAND TELEMETRY RADAR &bull; LAAMU MAAVAH</span>
+              </div>
+
+              <h1 class="hero-title">
+                Maavah <span class="serif-accent">Live</span>
+
+              </h1>
+
+              <p class="hero-lead">
+                Weather forecasting, tidal hydrology, and consolidated Civic Services information, Hotlines and Contacts
+                of Maavah.
+              </p>
+
+              <div class="hero-meta-strip">
+                <div class="meta-pill">
+                  <strong>COORDINATES:</strong>
+                  <span>1.8800° N, 73.2400° E</span>
+                </div>
+                <div class="meta-pill">
+                  <strong>ATOLL:</strong>
+                  <span>Haddhunmathi (Laamu)</span>
+                </div>
+                <div class="meta-pill">
+                  <strong>MODEL:</strong>
+                  <span>Open-Meteo Synoptic</span>
+                </div>
+                <div class="meta-pill">
+                  <strong>TIMEZONE:</strong>
+                  <span>MVT (UTC+5)</span>
+                </div>
+              </div>
             </div>
 
-            <h1 class="hero-title">
-              Maavah <span class="serif-accent">Live</span>
-              <br>Maritime & Civic Hub
-            </h1>
+            <!-- Hero Telemetry Quick Box -->
+            <div class="hero-telemetry-box">
+              <div class="card-header-hud">
+                <span class="card-title-hud">// SATELLITE QUICK STATS</span>
+                <span class="card-badge-hud">LIVE SNAPSHOT</span>
+              </div>
 
-            <p class="hero-lead">
-              Precision Open-Meteo weather forecasting, astronomical tidal hydrology, and consolidated civic dispatches from the Maavah Council, Maavashu School, and Maavashu Health Center.
-            </p>
-
-            <div class="hero-meta-strip">
-              <div class="meta-pill">
-                <strong>COORDINATES:</strong>
-                <span>1.8800° N, 73.2400° E</span>
+              <div class="telemetry-row">
+                <span class="telemetry-label">TEMPERATURE</span>
+                <span class="telemetry-value">
+                  <%= weather.current.temperature %>°C (Feels <%= weather.current.apparentTemperature %>°C)
+                </span>
               </div>
-              <div class="meta-pill">
-                <strong>ATOLL:</strong>
-                <span>Haddhunmathi (Laamu)</span>
+              <div class="telemetry-row">
+                <span class="telemetry-label">WIND VECTOR</span>
+                <span class="telemetry-value">
+                  <%= weather.current.wind.speedKnots %> kts &bull; <%= weather.current.wind.cardinal %> (<%=
+                        weather.current.wind.directionDeg %>°)
+                </span>
               </div>
-              <div class="meta-pill">
-                <strong>MODEL:</strong>
-                <span>Open-Meteo Synoptic</span>
+              <div class="telemetry-row">
+                <span class="telemetry-label">TIDAL STAGE</span>
+                <span class="telemetry-value">
+                  <%= weather.tides.currentHeight %>m &bull; <%= weather.tides.state %>
+                </span>
               </div>
-              <div class="meta-pill">
-                <strong>TIMEZONE:</strong>
-                <span>MVT (UTC+5)</span>
+              <div class="telemetry-row">
+                <span class="telemetry-label">SWELL STATE</span>
+                <span class="telemetry-value">
+                  <%= weather.marine.waveHeight %>m @ <%= weather.marine.wavePeriod %>s (<%= weather.marine.seaState %>)
+                </span>
+              </div>
+              <div class="telemetry-row">
+                <span class="telemetry-label">RAIN RISK</span>
+                <span class="telemetry-value">
+                  <%= weather.current.rain> 0 ? weather.current.rain + ' mm/hr' : 'No Rain' %>
+                </span>
               </div>
             </div>
           </div>
+        </section>
 
-          <!-- Hero Telemetry Quick Box -->
-          <div class="hero-telemetry-box">
-            <div class="card-header-hud">
-              <span class="card-title-hud">// SATELLITE QUICK STATS</span>
-              <span class="card-badge-hud">LIVE SNAPSHOT</span>
+        <!-- Weather & Marine Section -->
+        <section id="weather-section" style="padding-top: 20px;">
+          <div class="section-header-bar">
+            <div>
+              <div class="hud-section-tag">// TELEMETRY FEED</div>
+              <h2 class="section-title">Meteorological & Tidal Observation</h2>
             </div>
 
-            <div class="telemetry-row">
-              <span class="telemetry-label">TEMPERATURE</span>
-              <span class="telemetry-value"><%= weather.current.temperature %>°C (Feels <%= weather.current.apparentTemperature %>°C)</span>
-            </div>
-            <div class="telemetry-row">
-              <span class="telemetry-label">WIND VECTOR</span>
-              <span class="telemetry-value"><%= weather.current.wind.speedKnots %> kts &bull; <%= weather.current.wind.cardinal %> (<%= weather.current.wind.directionDeg %>°)</span>
-            </div>
-            <div class="telemetry-row">
-              <span class="telemetry-label">TIDAL STAGE</span>
-              <span class="telemetry-value"><%= weather.tides.currentHeight %>m &bull; <%= weather.tides.state %></span>
-            </div>
-            <div class="telemetry-row">
-              <span class="telemetry-label">SWELL STATE</span>
-              <span class="telemetry-value"><%= weather.marine.waveHeight %>m @ <%= weather.marine.wavePeriod %>s (<%= weather.marine.seaState %>)</span>
-            </div>
-            <div class="telemetry-row">
-              <span class="telemetry-label">RAIN RISK</span>
-              <span class="telemetry-value"><%= weather.current.rain > 0 ? weather.current.rain + ' mm/hr' : 'No Rain' %></span>
+            <div class="section-controls">
+              <!-- Unit Switcher -->
+              <button class="hud-btn <%= unit === 'C' ? 'active' : '' %>" onclick="toggleUnit('C')"
+                title="Show in Celsius">°C</button>
+              <button class="hud-btn <%= unit === 'F' ? 'active' : '' %>" onclick="toggleUnit('F')"
+                title="Show in Fahrenheit">°F</button>
+
+              <!-- HTMX Refresh Trigger -->
+              <button class="hud-btn" hx-get="/api/weather-cards?force=true&unit=<%= unit %>"
+                hx-target="#weather-cards-container" hx-swap="innerHTML" hx-indicator="#weather-refresh-spinner"
+                title="Sync latest live data from Open-Meteo">
+                <svg id="weather-refresh-spinner" class="spinner-icon htmx-indicator" width="12" height="12"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+                </svg>
+                <span>Refresh Open-Meteo</span>
+              </button>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Weather & Marine Section -->
-      <section id="weather-section" style="padding-top: 20px;">
-        <div class="section-header-bar">
-          <div>
-            <div class="hud-section-tag">// TELEMETRY FEED</div>
-            <h2 class="section-title">Meteorological & Tidal Observation</h2>
+          <!-- Dynamic Weather Cards Container (Swapped via HTMX) -->
+          <div id="weather-cards-container">
+            <%- include('partials/weather-cards') %>
           </div>
 
-          <div class="section-controls">
-            <!-- Unit Switcher -->
-            <button 
-              class="hud-btn <%= unit === 'C' ? 'active' : '' %>"
-              onclick="toggleUnit('C')"
-              title="Show in Celsius"
-            >°C</button>
-            <button 
-              class="hud-btn <%= unit === 'F' ? 'active' : '' %>"
-              onclick="toggleUnit('F')"
-              title="Show in Fahrenheit"
-            >°F</button>
+          <!-- Hourly & 7-Day Extended Forecast Panel -->
+          <%- include('partials/hourly-forecast') %>
+        </section>
 
-            <!-- HTMX Refresh Trigger -->
-            <button 
-              class="hud-btn"
-              hx-get="/api/weather-cards?force=true&unit=<%= unit %>"
-              hx-target="#weather-cards-container"
-              hx-swap="innerHTML"
-              hx-indicator="#weather-refresh-spinner"
-              title="Sync latest live data from Open-Meteo"
-            >
-              <svg id="weather-refresh-spinner" class="spinner-icon htmx-indicator" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
-              </svg>
-              <span>Refresh Open-Meteo</span>
+        <!-- Community Dispatches & Facebook Feeds Section -->
+        <section id="feeds-section" class="feeds-section">
+          <div class="section-header-bar">
+            <div>
+              <div class="hud-section-tag">// CIVIC INTELLIGENCE</div>
+              <h2 class="section-title">Island Community Dispatches & Social Feeds</h2>
+            </div>
+
+            <div class="hud-mono" style="font-size: 11px; color: var(--muted);">
+              SOURCE CHANNELS: 3 VERIFIED PAGES
+            </div>
+          </div>
+
+          <!-- HTMX Feed Tabs & Search Bar -->
+          <div class="feed-tabs-hud">
+            <button class="feed-tab-btn <%= activeSource === 'all' ? 'active' : '' %>" hx-get="/feeds?source=all"
+              hx-target="#feed-cards-container" hx-swap="innerHTML">
+              <span>All Updates (8)</span>
             </button>
-          </div>
-        </div>
 
-        <!-- Dynamic Weather Cards Container (Swapped via HTMX) -->
-        <div id="weather-cards-container">
-          <%- include('partials/weather-cards') %>
-        </div>
+            <button class="feed-tab-btn <%= activeSource === 'council' ? 'active' : '' %>"
+              hx-get="/feeds?source=council" hx-target="#feed-cards-container" hx-swap="innerHTML">
+              <span>Maavah Council</span>
+            </button>
 
-        <!-- Hourly & 7-Day Extended Forecast Panel -->
-        <%- include('partials/hourly-forecast') %>
-      </section>
+            <button class="feed-tab-btn <%= activeSource === 'school' ? 'active' : '' %>" hx-get="/feeds?source=school"
+              hx-target="#feed-cards-container" hx-swap="innerHTML">
+              <span>Maavashu School</span>
+            </button>
 
-      <!-- Community Dispatches & Facebook Feeds Section -->
-      <section id="feeds-section" class="feeds-section">
-        <div class="section-header-bar">
-          <div>
-            <div class="hud-section-tag">// CIVIC INTELLIGENCE</div>
-            <h2 class="section-title">Island Community Dispatches & Social Feeds</h2>
-          </div>
+            <button class="feed-tab-btn <%= activeSource === 'health' ? 'active' : '' %>" hx-get="/feeds?source=health"
+              hx-target="#feed-cards-container" hx-swap="innerHTML">
+              <span>Maavashu Health Center</span>
+            </button>
 
-          <div class="hud-mono" style="font-size: 11px; color: var(--muted);">
-            SOURCE CHANNELS: 3 VERIFIED PAGES
-          </div>
-        </div>
-
-        <!-- HTMX Feed Tabs & Search Bar -->
-        <div class="feed-tabs-hud">
-          <button 
-            class="feed-tab-btn <%= activeSource === 'all' ? 'active' : '' %>"
-            hx-get="/feeds?source=all"
-            hx-target="#feed-cards-container"
-            hx-swap="innerHTML"
-          >
-            <span>All Updates (8)</span>
-          </button>
-
-          <button 
-            class="feed-tab-btn <%= activeSource === 'council' ? 'active' : '' %>"
-            hx-get="/feeds?source=council"
-            hx-target="#feed-cards-container"
-            hx-swap="innerHTML"
-          >
-            <span>Maavah Council</span>
-          </button>
-
-          <button 
-            class="feed-tab-btn <%= activeSource === 'school' ? 'active' : '' %>"
-            hx-get="/feeds?source=school"
-            hx-target="#feed-cards-container"
-            hx-swap="innerHTML"
-          >
-            <span>Maavashu School</span>
-          </button>
-
-          <button 
-            class="feed-tab-btn <%= activeSource === 'health' ? 'active' : '' %>"
-            hx-get="/feeds?source=health"
-            hx-target="#feed-cards-container"
-            hx-swap="innerHTML"
-          >
-            <span>Maavashu Health Center</span>
-          </button>
-
-          <!-- Search Bar with HTMX live search -->
-          <div class="search-box-hud">
-            <svg class="search-icon-hud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input 
-              type="text" 
-              name="q"
-              class="search-input-hud" 
-              placeholder="Search announcements, clinics, school..."
-              value="<%= searchQuery %>"
-              hx-get="/feeds"
-              hx-trigger="keyup changed delay:300ms, search"
-              hx-target="#feed-cards-container"
-              hx-swap="innerHTML"
-              aria-label="Filter island dispatches"
-            />
-          </div>
-        </div>
-
-        <!-- Dynamic Feed Cards Container (Swapped via HTMX) -->
-        <div id="feed-cards-container" class="feed-cards-grid">
-          <%- include('partials/feed-list') %>
-        </div>
-      </section>
-
-      <!-- Official Facebook Page Plugins Section -->
-      <section id="fb-embeds-section" style="padding-bottom: 60px;">
-        <div class="section-header-bar">
-          <div>
-            <div class="hud-section-tag">// OFFICIAL CHANNELS</div>
-            <h2 class="section-title">Live Facebook Page Plugins & Direct Feeds</h2>
-          </div>
-          <div class="hud-mono" style="font-size: 11px; color: var(--muted);">
-            OFFICIAL EMBEDS &bull; FACEBOOK GRAPH SDK
-          </div>
-        </div>
-
-        <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">
-          Direct live streams from the official Facebook Pages of Maavah Island. If third-party cookies or browser extensions restrict iframes, click the link to visit the page directly.
-        </p>
-
-        <%- include('partials/official-fb-embeds') %>
-      </section>
-
-      <!-- Civic Directory & Hotlines Section -->
-      <section id="directory-section" class="directory-section">
-        <div class="section-header-bar" style="margin-top: 0; padding-top: 0;">
-          <div>
-            <div class="hud-section-tag">// ISLAND EMERGENCY & DIRECTORY</div>
-            <h2 class="section-title">Maavah Civic Services & Hotlines</h2>
-          </div>
-        </div>
-
-        <div class="directory-grid">
-          <div class="directory-card">
-            <div class="dir-title">Maavashu Health Center</div>
-            <div class="dir-contact">Hotline: +960 6800034 | Ambulance: 102</div>
-            <p class="dir-desc">
-              24/7 emergency care, inpatient observation, pharmacy, and regional doctor clinics. Located on Bahaaree Hingun.
-            </p>
+            <!-- Search Bar with HTMX live search -->
+            <div class="search-box-hud">
+              <svg class="search-icon-hud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" name="q" class="search-input-hud"
+                placeholder="Search announcements, clinics, school..." value="<%= searchQuery %>" hx-get="/feeds"
+                hx-trigger="keyup changed delay:300ms, search" hx-target="#feed-cards-container" hx-swap="innerHTML"
+                aria-label="Filter island dispatches" />
+            </div>
           </div>
 
-          <div class="directory-card">
-            <div class="dir-title">Secretariat of Maavah Council</div>
-            <div class="dir-contact">Desk: +960 6800033 | info@maavah.gov.mv</div>
-            <p class="dir-desc">
-              Municipal affairs, harbor administration, land registry, and public announcements. Open Sun–Thu 8:00 AM – 2:00 PM.
-            </p>
+          <!-- Dynamic Feed Cards Container (Swapped via HTMX) -->
+          <div id="feed-cards-container" class="feed-cards-grid">
+            <%- include('partials/feed-list') %>
+          </div>
+        </section>
+
+        <!-- Official Facebook Page Plugins Section -->
+        <section id="fb-embeds-section" style="padding-bottom: 60px;">
+          <div class="section-header-bar">
+            <div>
+              <div class="hud-section-tag">// OFFICIAL CHANNELS</div>
+              <h2 class="section-title">Live Facebook Page Plugins & Direct Feeds</h2>
+            </div>
+            <div class="hud-mono" style="font-size: 11px; color: var(--muted);">
+              OFFICIAL EMBEDS &bull; FACEBOOK GRAPH SDK
+            </div>
           </div>
 
-          <div class="directory-card">
-            <div class="dir-title">Maavashu Police Post</div>
-            <div class="dir-contact">Emergency: 119 | Station: +960 9791334</div>
-            <p class="dir-desc">
-              Community policing, maritime vessel clearance, safety patrols, and public order in Maavah and surrounding lagoon.
-            </p>
+          <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">
+            Direct live streams from the official Facebook Pages of Maavah Island. If third-party cookies or browser
+            extensions restrict iframes, click the link to visit the page directly.
+          </p>
+
+          <%- include('partials/official-fb-embeds') %>
+        </section>
+
+        <!-- Local Business Contacts Section -->
+        <%- include('partials/business-contacts') %>
+
+        <!-- Civic Directory & Hotlines Section -->
+        <section id="directory-section" class="directory-section">
+          <div class="section-header-bar" style="margin-top: 0; padding-top: 0;">
+            <div>
+              <div class="hud-section-tag">// ISLAND EMERGENCY & DIRECTORY</div>
+              <h2 class="section-title">Maavah Civic Services & Hotlines</h2>
+            </div>
           </div>
-        </div>
-      </section>
 
-    </div>
-  </main>
+          <div class="directory-grid">
+            <div class="directory-card">
+              <div class="dir-title">Maavashu Health Center</div>
+              <div class="dir-contact">Hotline: +960 6800085 | maavah.healthcenter@grh.gov.mv</div>
+              <p class="dir-desc">
+                24/7 emergency care
+              </p>
+            </div>
 
-  <!-- Footer -->
-  <%- include('partials/footer') %>
+            <div class="directory-card">
+              <div class="dir-title">Secretariat of Maavah Council</div>
+              <div class="dir-contact">Reception: +960 6800019 | info@maavahcouncil.gov.mv</div>
+              <p class="dir-desc">
+                Municipal affairs, harbor administration, land registry, and public announcements. Open Sun–Thu 8:00 AM
+                – 2:00 PM.
+              </p>
+            </div>
+
+            <div class="directory-card">
+              <div class="dir-title">L.Maavah Police</div>
+              <div class="dir-contact">Station Contact: +960 9980065</div>
+              <p class="dir-desc">
+                Community policing, maritime vessel clearance, safety patrols, and public order in Maavah and
+                surrounding areas.
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <%- include('partials/footer') %>
 
 </body>
+
 </html>

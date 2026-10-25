@@ -28,6 +28,11 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#business-section">
+            <span>Business Contacts</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#directory-section">
             <span>Emergency & Council</span>
           </a>
@@ -38,7 +43,7 @@
     <div class="nav-right">
       <div class="nav-status">
         <span class="live-pulse" title="Telemetry Stream Active"></span>
-        <span id="live-mvt-clock">--:--:-- MVT</span>
+        <span id="live-mvt-clock" class="nav-clock-text">--:--:-- MVT</span>
       </div>
 
       <button 
@@ -54,6 +59,117 @@
         </svg>
         <span>Sync Telemetry</span>
       </button>
+
+      <!-- Mobile Hamburger Toggle Button -->
+      <button 
+        id="nav-hamburger-btn" 
+        class="nav-hamburger" 
+        type="button"
+        aria-label="Toggle navigation menu" 
+        aria-expanded="false" 
+        aria-controls="mobile-nav-drawer"
+      >
+        <span class="hamburger-box">
+          <span class="hamburger-line top"></span>
+          <span class="hamburger-line mid"></span>
+          <span class="hamburger-line bot"></span>
+        </span>
+        <span class="hamburger-label">MENU</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer Overlay -->
+  <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
+    <div class="mobile-nav-inner">
+      <div class="mobile-nav-header">
+        <div class="mobile-nav-status">
+          <span class="live-pulse"></span>
+          <span class="hud-mono" style="font-size: 11px; color: var(--ink);">TELEMETRY ACTIVE &bull; MVT (UTC+5)</span>
+        </div>
+        <div class="hud-mono" style="font-size: 10px; color: var(--muted);">1.8800° N, 73.2400° E</div>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="mobile-nav-group">
+        <div class="mobile-nav-heading">// NAVIGATION MATRIX</div>
+        <ul class="mobile-nav-links">
+          <li>
+            <a class="mobile-nav-link" href="#weather-section">
+              <span class="mobile-link-num">01</span>
+              <span class="mobile-link-title">Weather & Tides</span>
+              <span class="mobile-link-arrow">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="mobile-nav-link" href="#feeds-section">
+              <span class="mobile-link-num">02</span>
+              <span class="mobile-link-title">Community Feeds</span>
+              <span class="mobile-link-arrow">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="mobile-nav-link" href="#fb-embeds-section">
+              <span class="mobile-link-num">03</span>
+              <span class="mobile-link-title">Official FB Pages</span>
+              <span class="mobile-link-arrow">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="mobile-nav-link" href="#business-section">
+              <span class="mobile-link-num">04</span>
+              <span class="mobile-link-title">Business Contacts</span>
+              <span class="mobile-link-arrow">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="mobile-nav-link" href="#directory-section">
+              <span class="mobile-link-num">05</span>
+              <span class="mobile-link-title">Emergency & Council</span>
+              <span class="mobile-link-arrow">&rarr;</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Mobile Quick Actions & Hotlines -->
+      <div class="mobile-nav-quick">
+        <button 
+          class="mobile-sync-btn"
+          hx-get="/api/weather-cards?force=true"
+          hx-target="#weather-cards-container"
+          hx-swap="innerHTML"
+          hx-indicator="#mobile-refresh-spinner"
+          title="Trigger instant telemetry refresh"
+        >
+          <svg id="mobile-refresh-spinner" class="spinner-icon htmx-indicator" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+          <span>Sync Open-Meteo Telemetry</span>
+        </button>
+
+        <div class="mobile-hotlines-box">
+          <div class="mobile-nav-heading" style="margin-bottom: 8px;">// EMERGENCY CONTACT SHORTCUTS</div>
+          <div class="mobile-hotlines-grid">
+            <a href="tel:+9606800718" class="mobile-hotline-item">
+              <span class="hotline-org">Maavah Council</span>
+              <span class="hotline-num">+960 6800718</span>
+            </a>
+            <a href="tel:+9606800085" class="mobile-hotline-item">
+              <span class="hotline-org">Health Center</span>
+              <span class="hotline-num">+960 6800085</span>
+            </a>
+            <a href="tel:+9609980065" class="mobile-hotline-item">
+              <span class="hotline-org">Maavah Police</span>
+              <span class="hotline-num">+960 9980065</span>
+            </a>
+            <a href="tel:+9606800010" class="mobile-hotline-item">
+              <span class="hotline-org">Maavashu School</span>
+              <span class="hotline-num">+960 6800010</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

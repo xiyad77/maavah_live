@@ -270,6 +270,70 @@ button {
   opacity: 0.85;
 }
 
+/* Mobile Hamburger Toggle Base */
+.nav-hamburger {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  height: 100%;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  transition: background 0.15s ease, color 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-hamburger:hover {
+  background: var(--bg-sunken);
+}
+
+.hamburger-box {
+  width: 18px;
+  height: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--ink);
+  border-radius: 1px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, background-color 0.2s ease;
+  transform-origin: center;
+}
+
+.nav-hamburger.is-active .hamburger-line.top {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.nav-hamburger.is-active .hamburger-line.mid {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-hamburger.is-active .hamburger-line.bot {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+.nav-hamburger.is-active {
+  background: var(--bg-sunken);
+}
+
+.mobile-nav-drawer {
+  display: none;
+}
+
 /* -------------------------------------------------------------
    TELEMETRY TICKER BANNER
    ------------------------------------------------------------- */
@@ -1154,6 +1218,214 @@ button {
 }
 
 /* -------------------------------------------------------------
+   LOCAL BUSINESS CONTACTS & DIRECTORY
+   ------------------------------------------------------------- */
+.business-section {
+  padding: 44px 0 20px;
+  border-top: 1px solid var(--line);
+}
+
+.biz-category-group {
+  margin-bottom: 28px;
+}
+
+.biz-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+  background: var(--bg-sunken);
+  border: 1px solid var(--line);
+  border-bottom: none;
+}
+
+.biz-group-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+}
+
+.biz-group-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.biz-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.biz-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.biz-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--line-strong);
+  box-shadow: 0 4px 12px rgba(16, 16, 20, 0.05);
+}
+
+.biz-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.biz-category-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  background: var(--invert-bg);
+  color: var(--invert-fg);
+  border-radius: var(--radius-sm);
+}
+
+.biz-atoll {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.biz-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink-strong);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+.biz-tagline {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.biz-footer {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.biz-mobile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.biz-mobile-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.biz-mobile-num {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--ink-strong);
+}
+
+.biz-dial-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent-ink);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.biz-dial-btn:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+.biz-dial-btn:active {
+  transform: scale(0.98);
+}
+
+.biz-others-callout {
+  padding: 24px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+}
+
+.biz-others-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.biz-others-text strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.biz-empty-state {
+  padding: 40px 24px;
+  text-align: center;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  margin-top: 8px;
+}
+
+.biz-empty-icon {
+  margin-bottom: 12px;
+  color: var(--muted);
+}
+
+.biz-empty-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-strong);
+  margin-bottom: 8px;
+}
+
+.biz-empty-text {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* -------------------------------------------------------------
    CIVIC DIRECTORY / EMERGENCY CONTACTS
    ------------------------------------------------------------- */
 .directory-section {
@@ -1270,15 +1542,229 @@ button {
   .col-8 { grid-column: span 6; }
   .feed-post-card { grid-column: span 12; }
   .fb-embeds-grid { grid-template-columns: 1fr; }
+  .biz-cards-grid { grid-template-columns: repeat(2, 1fr); }
   .directory-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
   .nav-menu { display: none; }
+  .nav-cta { display: none; }
+  .nav-logo-tag { display: none; }
+  .nav-status { padding: 0 10px; font-size: 10px; }
+  .nav-clock-text { font-size: 10px; }
+  .nav-hamburger { display: flex; }
+
+  /* Body scroll lock when mobile menu is active */
+  body.mobile-nav-open {
+    overflow: hidden;
+  }
+
+  .mobile-nav-drawer {
+    display: block;
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(100dvh - var(--nav-height));
+    background: rgba(242, 241, 238, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--line);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-nav-drawer.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .mobile-nav-inner {
+    padding: 16px 18px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .mobile-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-nav-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-nav-heading {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .mobile-nav-links {
+    list-style: none;
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    transition: background 0.15s ease, padding-left 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-nav-links li:last-child .mobile-nav-link {
+    border-bottom: none;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link:active {
+    background: var(--bg-sunken);
+    padding-left: 20px;
+  }
+
+  .mobile-link-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-ink);
+    width: 28px;
+    font-weight: 700;
+  }
+
+  .mobile-link-title {
+    flex: 1;
+  }
+
+  .mobile-link-arrow {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--muted);
+    transition: transform 0.15s ease, color 0.15s ease;
+  }
+
+  .mobile-nav-link:hover .mobile-link-arrow,
+  .mobile-nav-link:active .mobile-link-arrow {
+    transform: translateX(4px);
+    color: var(--ink);
+  }
+
+  .mobile-nav-quick {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .mobile-sync-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--invert-bg);
+    color: var(--invert-fg);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-sync-btn:active {
+    opacity: 0.85;
+  }
+
+  .mobile-hotlines-box {
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+    padding: 14px;
+  }
+
+  .mobile-hotlines-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .mobile-hotline-item {
+    display: flex;
+    flex-direction: column;
+    padding: 9px 10px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    transition: border-color 0.15s ease, background 0.15s ease;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-hotline-item:hover,
+  .mobile-hotline-item:active {
+    background: var(--bg-sunken);
+    border-color: var(--line-strong);
+  }
+
+  .hotline-org {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hotline-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-ink);
+    margin-top: 3px;
+  }
+
   .footer-grid { grid-template-columns: 1fr; }
+  .biz-cards-grid { grid-template-columns: 1fr; }
   .footer-bottom-bar { flex-direction: column; gap: 8px; text-align: center; }
   .section-header-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
   .search-box-hud { width: 100%; margin-left: 0; }
   .feed-tabs-hud { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .mobile-hotlines-grid {
+    grid-template-columns: 1fr;
+  }
 }

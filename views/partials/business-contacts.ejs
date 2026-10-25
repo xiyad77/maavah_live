@@ -1,0 +1,83 @@
+<!-- Business Contacts Section -->
+<section id="business-section" class="business-section">
+  <div class="section-header-bar">
+    <div>
+      <div class="hud-section-tag">// LOCAL COMMERCE &amp; ENTERPRISE</div>
+      <h2 class="section-title">Business Contacts</h2>
+    </div>
+
+    <div class="hud-mono" style="font-size: 11px; color: var(--muted);">
+      COMMUNITY DIRECTORY &bull; 3 CATEGORIES
+    </div>
+  </div>
+
+  <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.6;">
+    Verified contact numbers and island services for retail shops, cafes, eateries, and local enterprises in Maavah Island. Click any telephone number to initiate a direct call.
+  </p>
+
+  <!-- Business Category Filter Tabs & Live Search Bar -->
+  <div class="feed-tabs-hud">
+    <button 
+      class="feed-tab-btn biz-tab-btn <%= activeBusinessCategory === 'all' ? 'active' : '' %>"
+      hx-get="/business?category=all"
+      hx-target="#business-list-container"
+      hx-swap="innerHTML"
+    >
+      <span>All Categories (<%= businesses.length %>)</span>
+    </button>
+
+    <button 
+      class="feed-tab-btn biz-tab-btn <%= activeBusinessCategory === 'shops' ? 'active' : '' %>"
+      hx-get="/business?category=shops"
+      hx-target="#business-list-container"
+      hx-swap="innerHTML"
+    >
+      <span>Shops (3)</span>
+    </button>
+
+    <button 
+      class="feed-tab-btn biz-tab-btn <%= activeBusinessCategory === 'cafe-restaurants' ? 'active' : '' %>"
+      hx-get="/business?category=cafe-restaurants"
+      hx-target="#business-list-container"
+      hx-swap="innerHTML"
+    >
+      <span>Cafe/restaurants (3)</span>
+    </button>
+
+    <button 
+      class="feed-tab-btn biz-tab-btn <%= activeBusinessCategory === 'others' ? 'active' : '' %>"
+      hx-get="/business?category=others"
+      hx-target="#business-list-container"
+      hx-swap="innerHTML"
+    >
+      <span>Others (0)</span>
+    </button>
+
+    <!-- Search Bar with HTMX live search -->
+    <div class="search-box-hud">
+      <svg class="search-icon-hud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input 
+        id="business-search-input"
+        type="text" 
+        name="q"
+        class="search-input-hud" 
+        placeholder="Search shop, cafe, or phone number..."
+        value="<%= businessSearchQuery || '' %>"
+        hx-get="/business"
+        hx-include="[name='category']"
+        hx-trigger="keyup changed delay:250ms, search"
+        hx-target="#business-list-container"
+        hx-swap="innerHTML"
+        aria-label="Filter island businesses"
+      />
+    </div>
+  </div>
+
+  <!-- Dynamic Business Cards Container (Swapped via HTMX) -->
+  <div id="business-list-container">
+    <%- include('business-list', { businesses, categories: businessCategories, activeCategory: activeBusinessCategory, searchQuery: businessSearchQuery || '' }) %>
+  </div>
+</section>

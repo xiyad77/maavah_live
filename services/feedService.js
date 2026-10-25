@@ -15,9 +15,9 @@ const SOURCES = {
     url: 'https://www.facebook.com/LaamuMaavahCouncil',
     category: 'Local Government & Civic Administration',
     badge: 'Official Council',
-    phone: '+960 6800033',
+    phone: '+960 6800718',
     email: 'info@maavah.gov.mv',
-    location: 'Maavah, Laamu Atoll, Maldives',
+    location: 'Violetu magu, Maavah, Laamu Atoll, Maldives',
     color: '#101014',
     accent: '#2d81ff'
   },
@@ -29,9 +29,9 @@ const SOURCES = {
     url: 'https://www.facebook.com/MaavashuSchool',
     category: 'Public Education & Youth Academy',
     badge: 'Education',
-    phone: '+960 6800012',
+    phone: '+960 6800010',
     email: 'admin@maavashuschool.edu.mv',
-    location: 'Ameenee Magu, Maavah',
+    location: 'Roashanee Magu, Maavah',
     color: '#0d5c3a',
     accent: '#107c41'
   },
@@ -43,10 +43,9 @@ const SOURCES = {
     url: 'https://www.facebook.com/MaavashuHealthCentr',
     category: 'Healthcare & 24/7 Emergency Clinic',
     badge: 'Healthcare',
-    phone: '+960 6800034',
-    ambulanceHotline: '102 / +960 7980034',
-    email: 'hc.maavah@health.gov.mv',
-    location: 'Bahaaree Hingun, Maavah',
+    phone: '+960 6800035',
+    email: 'maavah.healthcenter@grh.gov.mv',
+    location: 'L. Maavah',
     color: '#b3261e',
     accent: '#d93025'
   }
@@ -238,7 +237,7 @@ function getFeeds(source = 'all', searchQuery = '') {
   }
   if (searchQuery && searchQuery.trim() !== '') {
     const q = searchQuery.toLowerCase().trim();
-    list = list.filter(p => 
+    list = list.filter(p =>
       p.title.toLowerCase().includes(q) ||
       p.content.toLowerCase().includes(q) ||
       p.tags.some(t => t.toLowerCase().includes(q)) ||

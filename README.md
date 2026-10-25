@@ -53,6 +53,9 @@ Features:
 # Install dependencies
 npm install
 
+# Verify & build
+npm run build
+
 # Start production server
 npm start
 
